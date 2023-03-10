@@ -7,6 +7,7 @@ import { ParkService } from './park.service';
 export class ParkController {
     constructor (private readonly parkService: ParkService) {}
     //Park Detail
+    //เข้า ออก ที่จอด
     @Post("detail")
     async park(@Body() payload: CreateParkDetailDto){
         return await this.parkService.createParkDetail(payload)
