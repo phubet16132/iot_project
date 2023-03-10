@@ -1,0 +1,30 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Park {
+    id          String       @id @default(uuid())
+    parkName    String
+    parkCap     Int
+    currentPark Int?         @default(0)
+    creatAt     DateTime     @default(now())
+    ParkDetail  ParkDetail[]
+}
+
+enum ParkAction {
+    IN
+    OUT
+}
+
+model ParkDetail {
+    id         String     @id @default(uuid())
+    action     ParkAction
+    parkAt     String
+    park       Park       @relation(fields: [parkAt], references: [id])
+    parkTimeAt DateTime   @default(now())
+}
